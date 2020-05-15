@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Currency APIs Json object data</title>
+    <style>
+      body {
+        background-color: burlywood;
+      }
+    </style>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelector('form').onsubmit = function () {
+          // Web request by fetch through HTTP
+          fetch('https://api.exchangeratesapi.io/latest?base=USD')
+            .then((response) => response.json())
+            .then((data) => {
+              const currency = document
+                .querySelector('#currency')
+                .value.toUpperCase();
+              const rate = data.rates[currency];
+              // if the rate is not define then {...}
+              if (rate !== undefined) {
+                document.querySelector(
+                  '#result'
+                ).innerHTML = `1 USD is equal to ${rate.toFixed(
+                  3
+                )} ${currency}.`;
+              } else {
+                document.querySelector('#result').innerHTML =
+                  'Invalid Currency.';
+              }
+            })
+            // will catch the error and show into the console.
+            .catch((error) => {
+              console.log('Error:', error);
+            });
+
+          return false;
+        };
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Currency</h1>
+    <div>
+      <form id="form">
+        <input
+          id="currency"
+          autocomplete="off"
+          autofocus
+          placeholder="Currency"
+        />
+        <input type="submit" value="Get Exchange Rate" />
+      </form>
+      <br />
+      <hr />
+    </div>
+    <div id="result"></div>
+    <!-- <script src="app.js"></script> -->
+  </body>
+</html>
+
+<!-- https://youtu.be/x5trGVMKTdY?list=PLhQjrBD2T380xvFSUmToMMzERZ3qB5Ueu -->
+
+<!-- video time 1:30 hrs  -->
+
+<!-- Object APIs = mostly store in JSON -->
+<!-- In JSON object "" both sides like. "firstName" = "Kamran" -->
+
+<!-- 
+    LOCAL STORAGE
+
+    .localStorage.getItem(key)
+    .localStorage.setItem(key, value)
+ -->
+
+<!-- we can check the local storage value by going in f12 , application , storage, local storage then http.. same file -->
